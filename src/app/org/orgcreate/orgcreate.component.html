@@ -1,0 +1,101 @@
+<div id="wrapper">
+    <div id="leftcolumn">
+        <mat-accordion class="example-headers-align">
+            <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Organization
+                </mat-panel-title>
+                <mat-panel-description>
+                  Enter Organization Details
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+              <mat-form-field>
+                <input matInput placeholder="Organization Name" [(ngModel)]="newOrg.name" [value]=newOrg.name>
+              </mat-form-field>
+
+              <mat-form-field>
+                <input matInput placeholder="Organization Type" [(ngModel)]="newOrg.type" [value]=newOrg.type>
+              </mat-form-field>
+
+              <mat-action-row>
+                <button mat-button color="primary" (click)="nextStep()">Next</button>
+              </mat-action-row>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Other Details
+                </mat-panel-title>
+                <mat-panel-description>
+                  Enter Id and info
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+              <!-- <mat-form-field>
+                  <input matInput placeholder="Organization Id" [(ngModel)]="newOrg.id" [value]=newOrg.id>
+                </mat-form-field> -->
+
+                <mat-form-field>
+                  <input matInput placeholder="Organization Info" [(ngModel)]="newOrg.info" [value]=newOrg.info>
+                </mat-form-field>
+
+              <mat-action-row>
+                <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                <button mat-button color="primary" (click)="nextStep()">Next</button>
+              </mat-action-row>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Map Location
+                </mat-panel-title>
+                <mat-panel-description>
+                  Map location Details
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+                  <mat-form-field>
+                      <input matInput type="text" placeholder="City" [(ngModel)]="newOrg.address.city" [value]=newOrg.address.city (keypress)="loadMap()">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput type="text" placeholder="state district" [(ngModel)]="newOrg.address.state_district" [value]=newOrg.address.state_district (keypress)="loadMap()">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput type="text" placeholder="State" [(ngModel)]="newOrg.address.state" [value]=newOrg.address.state (keypress)="loadMap()">
+                  </mat-form-field>
+                  <mat-form-field>
+                      <input matInput type="text" placeholder="Country" [(ngModel)]="newOrg.address.country" [value]=newOrg.address.country (keypress)="loadMap()">
+                  </mat-form-field>
+                  <mat-form-field>
+                      <input matInput type="text" placeholder="Pin Code" [(ngModel)]="newOrg.address.postcode" [value]=newOrg.address.postcode (keypress)="loadMap()">
+                  </mat-form-field>
+
+              <mat-action-row>
+                <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                <button mat-button color="primary" (click)="saveOrg()">Save</button>
+              </mat-action-row>
+            </mat-expansion-panel>
+          </mat-accordion>
+    </div>
+
+
+    <div id="rightcolumn" style="color:black;">
+          <div id="map" class="container"></div>
+          <div id="search">
+              <input type="text" (keyup)="searchMapLocationBySearchData()" id="mapSearch" [(ngModel)]="searchAddress" type="text" name="addr" value="" id="addr" size="10" placeholder="Search location"/>
+              <div *ngFor="let addressDetails of address">
+                <div (click)="moveMap(addressDetails)" style="border: 1px solid black; margin: 0.5 px;">{{addressDetails.display_name}}</div>
+               </div>
+            </div>
+    </div>
+  </div>
+
+<ul *ngFor='let article of (articles | async)'>
+    <li>{{article.id}}</li>
+    <li>{{article.name}}</li>
+    <li>{{article.category}}</li>
+
+</ul>

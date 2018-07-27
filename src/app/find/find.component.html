@@ -1,0 +1,79 @@
+<!-- <mat-grid-list cols="4" rowHeight="100px">
+  <mat-grid-tile
+      *ngFor="let tile of tiles"
+      [colspan]="tile.cols"
+      [rowspan]="tile.rows"
+      [style.background]="tile.color" (click)="loadMap()">
+       <div id= {{tile.text}} class="container"></div>
+  </mat-grid-tile>
+  <mat-grid-tile
+      [colspan]="2"
+      [rowspan]="1"
+      [style.background]="tiles[0].color">
+
+  </mat-grid-tile>
+
+  <mat-grid-tile
+      [colspan]="2"
+      [rowspan]="5"
+      [style.background]="tiles[1].color">
+       <div id="map" class="container"></div>
+  </mat-grid-tile>
+
+  <mat-grid-tile
+      [colspan]="2"
+      [rowspan]="4"
+      [style.background]="tiles[2].color">
+      <div *ngFor="let org of organization">
+        {{org.name}}
+        {{org.id}}
+      </div>
+  </mat-grid-tile>
+</mat-grid-list> -->
+
+
+<div id="wrapper">
+    <div id="leftcolumn">
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource">
+
+              <!-- Position Column -->
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> ID </th>
+                <td mat-cell *matCellDef="let element" (click)="animateMap(element)"> {{element.id}} </td>
+              </ng-container>
+
+              <!-- Name Column -->
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Name </th>
+                <td mat-cell *matCellDef="let element" (click)="animateMap(element)"> {{element.name}} </td>
+              </ng-container>
+
+              <!-- Weight Column -->
+              <ng-container matColumnDef="type">
+                <th mat-header-cell *matHeaderCellDef> Type </th>
+                <td mat-cell *matCellDef="let element" (click)="animateMap(element)"> {{element.type}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="info">
+                  <th mat-header-cell *matHeaderCellDef> Info </th>
+                  <td mat-cell *matCellDef="let element" (click)="animateMap(element)"> {{element.info}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+          </div>
+    </div>
+    <div id="rightcolumn" style="color:black;">
+        <div id="map" class="container"></div>
+    </div>
+</div>
+
+
+
+

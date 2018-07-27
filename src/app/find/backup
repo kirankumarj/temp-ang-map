@@ -1,0 +1,102 @@
+import { Component, OnInit ,  AfterViewChecked, AfterViewInit, ViewChild} from '@angular/core';
+import { InfoService } from '../info.service';
+import { MatTableDataSource, MatPaginator } from '@angular/material';
+import { OrgMapInfo } from '../models/organization/OrgMapInfo';
+
+export interface Tile {
+  color: string;
+  cols: number;
+  rows: number;
+  text: string;
+}
+
+@Component({
+  selector: 'app-find',
+  templateUrl: './find.component.html',
+  styleUrls: ['./find.component.css']
+})
+export class FindComponent implements OnInit , AfterViewInit {
+  displayedColumns: string[] = ['id', 'name', 'type', 'info'];
+  organization;
+  mapLoc = [];
+  dataSource;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  tiles: Tile[] = [
+    {text: 'One', cols: 2, rows: 1, color: 'lightblue'},
+    {text: 'map', cols: 2, rows: 5, color: 'lightgreen'},
+    {text: 'Three', cols: 2, rows: 4, color: 'lightpink'},
+  ];
+
+  constructor(private service: InfoService) {
+
+  }
+
+  ngOnInit() {
+    this.service.mapLocation.subscribe(res => this.organization = res);
+    this.service.saveMapLocation(this.organization);
+
+    this.dataSource = new MatTableDataSource<OrgMapInfo>(this.organization);
+    this.dataSource.paginator = this.paginator;
+  }
+
+
+  ngAfterViewInit() {
+    this.loadMap();
+  }
+
+
+  loadMap() {
+        let center = new maptalks.Coordinate(-0.113049, 51.498568);
+        let map = new maptalks.Map('map', {
+          center: center,
+          zoom: 14,
+          baseLayer: new maptalks.TileLayer('base', {
+            urlTemplate: 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
+            subdomains: ['a','b','c','d'],
+            attribution: '&copy; <a href="http://osm.org">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/">CARTO</a>'
+          })
+        });
+        console.log(this.organization);
+
+        this.organization.forEach(element => {
+          this.mapLoc.push([element.latitude, element.longitude]);
+        });
+
+        let multipoint = new maptalks.MultiPoint(this.mapLoc, {
+          visible : true,
+          editable : true,
+          cursor : 'pointer',
+          shadowBlur : 0,
+          shadowColor : 'black',
+          draggable : false,
+          dragShadow : false, // display a shadow during dragging
+          drawOnAxis : null,  // force dragging stick on a axis, can be: x, y
+          symbol : {
+            'textFaceName' : 'sans-serif',
+            'textName' : 'org',
+            'textFill' : '#34495e',
+            'textHorizontalAlignment' : 'right',
+            'textSize' : 30
+          }
+        });
+
+        new maptalks.VectorLayer('vector', multipoint).addTo(map);
+  }
+
+  animateMap(element) {
+    console.log(element);
+      setTimeout( ( ) => {
+        this.map.animateTo({
+          center: [element.latitude, element.longitude],
+          zoom: 14,
+          pitch: 40,
+          bearing: 180
+        }, {
+          duration: 1000
+        });
+      }, 1000);
+    }
+
+
+}

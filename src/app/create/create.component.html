@@ -1,0 +1,73 @@
+<mat-accordion class="example-headers-align">
+  <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Organization
+      </mat-panel-title>
+      <mat-panel-description>
+        Enter Organization Details
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-form-field>
+      <input matInput placeholder="Organization Name" [(ngModel)]="newOrg.name" [value]=newOrg.name>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Organization Type" [(ngModel)]="newOrg.type" [value]=newOrg.type>
+    </mat-form-field>
+
+    <mat-action-row>
+      <button mat-button color="primary" (click)="nextStep()">Next</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Destination
+      </mat-panel-title>
+      <mat-panel-description>
+        Enter Id and info
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-form-field>
+        <input matInput placeholder="Organization Id" [(ngModel)]="newOrg.id" [value]=newOrg.id>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Organization Info" [(ngModel)]="newOrg.info" [value]=newOrg.info>
+      </mat-form-field>
+
+    <mat-action-row>
+      <button mat-button color="warn" (click)="prevStep()">Previous</button>
+      <button mat-button color="primary" (click)="nextStep()">Next</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Map Location
+      </mat-panel-title>
+      <mat-panel-description>
+        Please select map location for the organization
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-form-field>
+        <input matInput type="number" placeholder="Latitude" [(ngModel)]="newOrg.latitude" [value]=newOrg.latitude (keypress)="loadMap()">
+      </mat-form-field>
+      <mat-form-field>
+          <input matInput type="number" placeholder="Longitude" [(ngModel)]="newOrg.longitude" [value]=newOrg.longitude (keypress)="loadMap()">
+        </mat-form-field>
+    <div id="map" class="container" style="widows: 200px; height: 200px;"></div>
+
+    <mat-action-row>
+      <button mat-button color="warn" (click)="prevStep()">Previous</button>
+      <button mat-button color="primary" (click)="saveOrg()">Save</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+
+</mat-accordion>

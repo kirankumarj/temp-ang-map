@@ -1,0 +1,24 @@
+<!-- <ul>
+  <li><a class="active" routerLink=''>Create</a></li>
+  <li><a routerLink='view'>View</a></li>
+  <li><a routerLink='find'>Search</a></li>
+  <li style="float:right"><a href="#about">--</a></li>
+</ul> -->
+
+
+<button mat-button [matMenuTriggerFor]="menu"  style="background: dimgray; color:white; margin-bottom: 5px;" >Organization</button>
+<button mat-button [matMenuTriggerFor]="officeMenu"  style="background: dimgray; color:white; margin-left: 5px;margin-bottom: 5px;" >Office</button>
+<button mat-button [matMenuTriggerFor]="incidentMenu"  style="background: dimgray; color:white; margin-left: 5px;margin-bottom: 5px;" >Incident</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item routerLink='org-create'>create</button>
+  <button mat-menu-item routerLink='org-view'>Search</button>
+</mat-menu>
+<mat-menu #officeMenu="matMenu">
+    <button mat-menu-item routerLink='office-create'>create</button>
+    <button mat-menu-item routerLink='office-view'>View</button>
+  </mat-menu>
+<mat-menu #incidentMenu="matMenu">
+    <button mat-menu-item routerLink='incident-create'>create</button>
+    <button mat-menu-item routerLink='incident-view'>View</button>
+  </mat-menu>
+<router-outlet></router-outlet>

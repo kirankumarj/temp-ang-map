@@ -1,0 +1,195 @@
+<!-- <mat-grid-list cols="4" rowHeight="100px">
+  <mat-grid-tile
+      *ngFor="let tile of tiles"
+      [colspan]="tile.cols"
+      [rowspan]="tile.rows"
+      [style.background]="tile.color" (click)="loadMap()">
+       <div id= {{tile.text}} class="container"></div>
+  </mat-grid-tile>
+  <mat-grid-tile
+      [colspan]="2"
+      [rowspan]="1"
+      [style.background]="tiles[0].color">
+
+  </mat-grid-tile>
+
+  <mat-grid-tile
+      [colspan]="2"
+      [rowspan]="5"
+      [style.background]="tiles[1].color">
+       <div id="map" class="container"></div>
+  </mat-grid-tile>
+
+  <mat-grid-tile
+      [colspan]="2"
+      [rowspan]="4"
+      [style.background]="tiles[2].color">
+      <div *ngFor="let org of organization">
+        {{org.name}}
+        {{org.id}}
+      </div>
+  </mat-grid-tile>
+</mat-grid-list> -->
+
+<!-- <div>
+  <ul *ngFor='let organization of ( organizationsList | async)'>
+    <li>{{organization.id}}</li>
+  </ul>
+</div> -->
+<!-- <div *ngIf="!isUpdate; then viewTemplate ; else updateTemplate">
+</div>
+
+<ng-template #viewTemplate> -->
+    <div id="wrapper" [style.display]="displayAllVal">
+    <div id="leftcolumn">
+        <div class="example-container" style="background: white; padding: 10px; margin: 2px;">
+            <mat-form-field>
+              <input matInput #input placeholder="Search Info" (keyup)="filterOrgInfo(input.value)">
+              <!-- <mat-hint align="end">{{input.value?.length || 0}}/10</mat-hint> -->
+              <mat-error *ngIf="true">Data not exist..! Please try other value</mat-error>
+            </mat-form-field>
+          </div>
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource">
+
+              <!-- Position Column -->
+              <!-- <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> ID </th>
+                <td mat-cell *matCellDef="let element" (click)="animateMap(element)"> {{element.id}} </td>
+              </ng-container> -->
+
+              <!-- Name Column -->
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Name </th>
+                <td mat-cell *matCellDef="let element" (click)="animateMap(element)"> {{element.name}} </td>
+              </ng-container>
+
+              <!-- Weight Column -->
+              <ng-container matColumnDef="type">
+                <th mat-header-cell *matHeaderCellDef> Type </th>
+                <td mat-cell *matCellDef="let element" (click)="animateMap(element)"> {{element.type}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="info">
+                  <th mat-header-cell *matHeaderCellDef> Info </th>
+                  <td mat-cell *matCellDef="let element" (click)="animateMap(element)"> {{element.info}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef> Action </th>
+                    <!-- <td mat-cell *matCellDef="let element" (click)="animateMap(element)"> {{element.info}} </td> -->
+                 <td mat-cell *matCellDef="let element">
+                   <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <mat-icon>...</mat-icon>
+                      </button>
+                      <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="updateRecord(element)">
+                          <span>Update</span>
+                        </button>
+                        <button mat-menu-item (click)="deleteRecord(element)">
+                          <span>Delete</span>
+                        </button>
+                      </mat-menu>
+                    </td>
+              </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[4, 8]" showFirstLastButtons></mat-paginator>
+          </div>
+    </div>
+    <div id="rightcolumn" style="color:black;">
+        <div id="map" class="container"></div>
+    </div>
+  </div>
+
+
+<div id="wrapper" [style.display]="displayUpdateVal">
+    <div id="leftcolumn" style="background: white;">
+        <mat-accordion class="example-headers-align">
+            <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Organization
+                </mat-panel-title>
+                <mat-panel-description>
+                  Update the Organization Details
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+              <mat-form-field>
+                  <input matInput placeholder="Organization Name" [(ngModel)]="updateData.name" [value]=updateData.name>
+              </mat-form-field>
+              <mat-form-field>
+                  <input matInput placeholder="Organization type" [(ngModel)]="updateData.type" [value]=updateData.type>
+              </mat-form-field>
+              <mat-form-field>
+                  <input matInput placeholder="Organization info" [(ngModel)]="updateData.info" [value]=updateData.info>
+              </mat-form-field>
+
+              <mat-action-row>
+                <button mat-button color="primary" (click)="nextStep()">Next</button>
+              </mat-action-row>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Map Location
+                </mat-panel-title>
+                <mat-panel-description>
+                  Map location Details
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+                  <mat-form-field>
+                      <input matInput type="text" placeholder="City" [(ngModel)]="updateData.address.city" [value]=updateData.address.city (keypress)="loadMap()">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput type="text" placeholder="state district" [(ngModel)]="updateData.address.state_district" [value]=updateData.address.state_district (keypress)="loadMap()">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput type="text" placeholder="State" [(ngModel)]="updateData.address.state" [value]=updateData.address.state (keypress)="loadMap()">
+                  </mat-form-field>
+                  <mat-form-field>
+                      <input matInput type="text" placeholder="Country" [(ngModel)]="updateData.address.country" [value]=updateData.address.country (keypress)="loadMap()">
+                  </mat-form-field>
+                  <mat-form-field>
+                      <input matInput type="text" placeholder="Pin Code" [(ngModel)]="updateData.address.postcode" [value]=updateData.address.postcode (keypress)="loadMap()">
+                  </mat-form-field>
+
+              <mat-action-row>
+                <button mat-button color="primary" (click)="prevStep()">Previous</button>
+                <button mat-button color="warn" (click)="updateCancel()">Cancel</button>
+                <button mat-button color="primary" (click)="updateOrg()">Update</button>
+              </mat-action-row>
+            </mat-expansion-panel>
+          </mat-accordion>
+        <!-- <mat-form-field>
+            <input matInput placeholder="Organization Name" [(ngModel)]="updateData.name" [value]=updateData.name>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Organization type" [(ngModel)]="updateData.type" [value]=updateData.type>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Organization info" [(ngModel)]="updateData.info" [value]=updateData.info>
+        </mat-form-field> -->
+    </div>
+
+
+    <div id="rightcolumn" style="color:black;">
+        <div id="mapUpdate" class="container"  ></div>
+        <div id="search">
+            <input type="text" (keyup)="searchMapLocationBySearchData()" id="mapSearch" [(ngModel)]="searchAddress" type="text" name="addr" value="" id="addr" size="10" placeholder="Search location"/>
+            <div *ngFor="let addressDetails of address">
+              <div (click)="moveMap(addressDetails)" style="border: 1px solid black; margin: 0.5 px;">{{addressDetails.display_name}}</div>
+             </div>
+          </div>
+    </div>
+
+  </div>
+<div id="overlay" [style.display]='displayLayout'>
+  <mat-spinner></mat-spinner>
+</div>

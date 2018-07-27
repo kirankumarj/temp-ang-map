@@ -1,0 +1,75 @@
+.container{width:100%; height: 100%;}
+/* #info{margin-top: 100px; position:fixed;background-color:rgba(13, 13, 13, 0.5);padding:10px 10px 10px 10px;font:13px bold sans-serif;color:#fff;left:0px;top:0px;width:100%;height:140px;overflow:hidden} */
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 25%;
+}
+
+
+.container{
+  width:100%;
+  height: 540px;
+}
+#info{margin-top: 100px; position:fixed;background-color:rgba(13, 13, 13, 0.5);padding:10px 10px 10px 10px;font:13px bold sans-serif;color:#fff;left:0px;top:0px;width:100%;height:140px;overflow:hidden}
+
+.mat-figure {
+display: inline !important;
+}
+table {
+  width: 100%;
+}
+
+#wrapper {
+  margin: 0 auto;
+}
+#leftcolumn, #rightcolumn {
+ border: 1px solid grey;
+ float: left;
+ min-height: 450px;
+ color: black;
+}
+#leftcolumn {
+  width: 550px;
+  background-color: #777;
+  height: 540px;
+}
+#rightcolumn {
+  width: 650px;
+  background-color:black;
+}
+
+div#search input {
+	width: 530px;
+}
+div#results {
+	font-style: sans-serif;
+	color: black;
+	font-size: 75%;
+}
+
+div#search {
+    background-color: lightgray;
+    position: absolute;
+    top: 50px;
+    height: auto;
+    padding: 2px;
+    width: 537px;
+    font-size: 15px;
+}
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.example-container > * {
+  width: 100%;
+}
